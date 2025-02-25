@@ -58,7 +58,7 @@ class Grid {
         tile.append(image);
     }
     
-    renderPieces(){
+    renderTiles(){
         for(let x = 0; x < this.tiles.length; x++){
             for(let y = 0; y < this.tiles.length; y++){
                 let pos = new Vector2(x, y);
@@ -159,7 +159,7 @@ class Grid {
 
                         piece.position = availablePos;
                         resetAvailableTiles();
-                        this.renderPieces();
+                        this.renderTiles();
                     };
                 }
             }

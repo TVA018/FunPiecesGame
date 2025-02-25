@@ -60,4 +60,4 @@ for(const piece of BOARD_LAYOUT){
     grid.addPiece(piece);
 }
 
-grid.renderPieces();
+grid.renderTiles();
