@@ -9,118 +9,6 @@ class Grid {
         this.pieces = [];
     }
 
-    createLabels(size){
-        for(let y = 1; y <= size; y++){
-            let leftLabel = document.createElement("p");
-            leftLabel.classList.add("tile", "black");
-            leftLabel.innerText = y;
-            leftLabel.style["grid-column-start"] = 1;
-            leftLabel.style["grid-column-end"] = 2;
-            leftLabel.style["grid-row-start"] = 10 - y;
-            leftLabel.style["grid-row-end"] = 11 - y;
-            this.container.append(leftLabel);
-            
-            let rightLabel = document.createElement("p");
-            rightLabel.classList.add("tile", "black");
-            rightLabel.innerText = y;
-            rightLabel.style["grid-column-start"] = size + 2;
-            rightLabel.style["grid-column-end"] = size + 3;
-            rightLabel.style["grid-row-start"] = 10 - y;
-            rightLabel.style["grid-row-end"] = 11 - y;
-            this.container.append(rightLabel);
-        }
-
-        for(let x = 0; x < size; x++){
-            let topLabel = document.createElement("p");
-            topLabel.classList.add("tile", "black");
-            topLabel.innerText = String.fromCharCode(65 + x);
-            topLabel.style["grid-column-start"] = x + 2;
-            topLabel.style["grid-column-end"] = x + 3;
-            topLabel.style["grid-row-start"] = 1;
-            topLabel.style["grid-row-end"] = 2;
-            this.container.append(topLabel);
-
-            let bottomLabel = document.createElement("p");
-            bottomLabel.classList.add("tile", "black");
-            bottomLabel.innerText = String.fromCharCode(65 + x);
-            bottomLabel.style["grid-column-start"] = x + 2;
-            bottomLabel.style["grid-column-end"] = x + 3;
-            bottomLabel.style["grid-row-start"] = size + 2;
-            bottomLabel.style["grid-row-end"] = size + 3;
-            this.container.append(bottomLabel);
-        }
-    }
-    
-    createTiles(size){
-        function getOnclickDefault(tileX, tileY){
-            return () => {
-                let piece = this.getPiece(pos);
-                console.log(pos, piece);
-                
-                const resetAvailableTiles = () => {
-                    for(const tileInfo of this.availableTiles){
-                        const availableTile = tileInfo.tile;
-                        const availablePos = tileInfo.position;
-                        availableTile.onclick = getOnclickDefault(availablePos.x, availablePos.y);
-                        availableTile.classList.remove("variant2");
-                    }
-
-                    this.availableTiles = [];
-                }
-
-                resetAvailableTiles();
-
-                if(!piece || this.activeTile == tile) {
-                    this.activeTile = null;
-                    return; 
-                }
-
-                this.activeTile = tile;
-
-                this.availableTiles = piece.availableTiles;
-
-                for(const tileInfo of this.availableTiles){
-                    const availableTile = tileInfo.tile;
-                    const availablePos = tileInfo.position;
-                    const pieceToRemove = this.getPiece(availablePos);
-
-                    if(pieceToRemove){
-                        this.removePiece(pieceToRemove);
-                    }
-                    
-                    availableTile.classList.add("variant2");
-                    availableTile.onclick = () => {
-                        this.activeTile = null;
-                        piece.position = availablePos;
-                        resetAvailableTiles();
-                        this.renderPieces();
-                    };
-                }
-            }
-        }
-
-        tile.onclick = getOnclickDefault(x, y);
-
-        for(let x = 0; x < size; x++){
-            let column = [];
-            
-            for(let y = 0; y < size; y++){
-                let isTileActive = false;
-                const pos = new Vector2(x, y);
-                const tile = document.createElement("button");
-                tile.classList.add("tile", `variant${(x + y) % 2}`);
-                tile.style["grid-column-start"] = x + 2;
-                tile.style["grid-column-end"] = x + 3;
-                tile.style["grid-row-start"] = y + 2;
-                tile.style["grid-row-end"] = y + 3;
-                this.container.append(tile);
-                column.push(tile);
-            }
-
-            this.tiles.push(column);
-        }
-    }
-
     addPiece(piece){
         this.pieces.push(piece);
     }
@@ -182,6 +70,117 @@ class Grid {
                     this.renderTile(pos);
                 }
             }
+        }
+    }
+
+    createLabels(size){
+        for(let y = 1; y <= size; y++){
+            let leftLabel = document.createElement("p");
+            leftLabel.classList.add("tile", "black");
+            leftLabel.innerText = y;
+            leftLabel.style["grid-column-start"] = 1;
+            leftLabel.style["grid-column-end"] = 2;
+            leftLabel.style["grid-row-start"] = 10 - y;
+            leftLabel.style["grid-row-end"] = 11 - y;
+            this.container.append(leftLabel);
+            
+            let rightLabel = document.createElement("p");
+            rightLabel.classList.add("tile", "black");
+            rightLabel.innerText = y;
+            rightLabel.style["grid-column-start"] = size + 2;
+            rightLabel.style["grid-column-end"] = size + 3;
+            rightLabel.style["grid-row-start"] = 10 - y;
+            rightLabel.style["grid-row-end"] = 11 - y;
+            this.container.append(rightLabel);
+        }
+
+        for(let x = 0; x < size; x++){
+            let topLabel = document.createElement("p");
+            topLabel.classList.add("tile", "black");
+            topLabel.innerText = String.fromCharCode(65 + x);
+            topLabel.style["grid-column-start"] = x + 2;
+            topLabel.style["grid-column-end"] = x + 3;
+            topLabel.style["grid-row-start"] = 1;
+            topLabel.style["grid-row-end"] = 2;
+            this.container.append(topLabel);
+
+            let bottomLabel = document.createElement("p");
+            bottomLabel.classList.add("tile", "black");
+            bottomLabel.innerText = String.fromCharCode(65 + x);
+            bottomLabel.style["grid-column-start"] = x + 2;
+            bottomLabel.style["grid-column-end"] = x + 3;
+            bottomLabel.style["grid-row-start"] = size + 2;
+            bottomLabel.style["grid-row-end"] = size + 3;
+            this.container.append(bottomLabel);
+        }
+    }
+    
+    createTiles(size){
+        const getOnclickDefault = (tileX, tileY, tile) => {
+            return () => {
+                const pos = new Vector2(tileX, tileY);
+                let piece = this.getPiece(pos);
+                
+                const resetAvailableTiles = () => {
+                    for(const tileInfo of this.availableTiles){
+                        const availableTile = tileInfo.tile;
+                        const availablePos = tileInfo.position;
+                        availableTile.onclick = getOnclickDefault(availablePos.x, availablePos.y, availableTile);
+                        availableTile.classList.remove("variant2");
+                    }
+
+                    this.availableTiles = [];
+                }
+
+                resetAvailableTiles();
+
+                if(!piece || this.activeTile == tile) {
+                    this.activeTile = null;
+                    return; 
+                }
+
+                this.activeTile = tile;
+
+                this.availableTiles = piece.availableTiles;
+
+                for(const tileInfo of this.availableTiles){
+                    const availableTile = tileInfo.tile;
+                    const availablePos = tileInfo.position;
+                    
+                    availableTile.classList.add("variant2");
+                    availableTile.onclick = () => {
+                        this.activeTile = null;
+
+                        //remove piece at that position
+                        const pieceToRemove = this.getPiece(availablePos);
+                        if(pieceToRemove){
+                            this.removePiece(pieceToRemove);
+                        }
+
+                        piece.position = availablePos;
+                        resetAvailableTiles();
+                        this.renderPieces();
+                    };
+                }
+            }
+        }
+
+        for(let x = 0; x < size; x++){
+            let column = [];
+            
+            for(let y = 0; y < size; y++){
+                const tile = document.createElement("button");
+                tile.classList.add("tile", `variant${(x + y) % 2}`);
+                tile.style["grid-column-start"] = x + 2;
+                tile.style["grid-column-end"] = x + 3;
+                tile.style["grid-row-start"] = y + 2;
+                tile.style["grid-row-end"] = y + 3;
+                this.container.append(tile);
+                column.push(tile);
+                tile.onclick = getOnclickDefault(x, y, tile);
+            }
+
+            this.tiles.push(column);
         }
     }
 }
