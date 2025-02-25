@@ -41,6 +41,44 @@ class Queen extends Piece {
         super(grid, startingPos, side);
         this.name = `${side}Queen`;
     }
+
+    get availableTiles(){
+        const tiles = [];
+        let posToCheck = this.position.clone();
+        const directionIncrements = [
+            () => posToCheck.y++, //downwards
+            () => posToCheck.y--, //upwards
+            () => posToCheck.x++, //right
+            () => posToCheck.x--, //left
+            () => posToCheck = posToCheck.add(new Vector2(1, 1)), //down-right
+            () => posToCheck = posToCheck.add(new Vector2(1, -1)), //down-left
+            () => posToCheck = posToCheck.add(new Vector2(-1, 1)), //up-right
+            () => posToCheck = posToCheck.add(new Vector2(-1, -1)), //up-left
+        ]
+
+        for(const posIncrementMethod of directionIncrements){
+            while(true){
+                posIncrementMethod();
+    
+                if(!this.canMoveTo(posToCheck, true)){ //can't move there
+                    break;
+                }
+    
+                tiles.push({ //add to possible tiles
+                    position: posToCheck.clone(),
+                    tile: this.grid.getTile(posToCheck)
+                });
+    
+                if(this.grid.getPiece(posToCheck)){ //hit a tile, stop checking this direction
+                    break;
+                }
+            }
+
+            posToCheck = this.position.clone();
+        }
+
+        return tiles;
+    }
 }
 
 class Rook extends Piece {
