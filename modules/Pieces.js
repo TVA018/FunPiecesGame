@@ -34,6 +34,25 @@ class King extends Piece {
         super(grid, startingPos, side);
         this.name = `${side}King`;
     }
+
+    get availableTiles(){
+        const tiles = [];
+
+        for(let x = this.position.x - 1; x < this.position.x + 2; x++){
+            for(let y = this.position.y - 1; y < this.position.y + 2; y++){
+                const posToCheck = new Vector2(x, y);
+
+                if(this.canMoveTo(posToCheck, true)){
+                    tiles.push({
+                        position: posToCheck,
+                        tile: this.grid.getTile(posToCheck),
+                    });
+                }
+            }
+        }
+
+        return tiles;
+    }
 }
 
 class Queen extends Piece {

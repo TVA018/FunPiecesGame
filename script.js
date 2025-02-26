@@ -46,8 +46,8 @@ const TEST_BOARD_LAYOUT = [
     // new Knight(grid, new Vector2(6, 7), "White"),
     // new Bishop(grid, new Vector2(2, 7), "White"),
     // new Bishop(grid, new Vector2(5, 7), "White"),
-    new Queen(grid, new Vector2(3, 7), "White"),
-    // new King(grid, new Vector2(4, 7), "White"),
+    // new Queen(grid, new Vector2(3, 7), "White"),
+    new King(grid, new Vector2(4, 7), "White"),
 ];
 
 for(let i = 0; i < 8; i++){
