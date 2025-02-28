@@ -54,7 +54,7 @@ for(let i = 0; i < 8; i++){
     TEST_BOARD_LAYOUT.push(new Pawn(grid, new Vector2(i, 1), "Black"));
 }
 
-const BOARD_LAYOUT = TEST_BOARD_LAYOUT;
+const BOARD_LAYOUT = DEFAULT_BOARD_LAYOUT;
 
 for(const piece of BOARD_LAYOUT){
     grid.addPiece(piece);
