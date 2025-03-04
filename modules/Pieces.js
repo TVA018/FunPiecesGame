@@ -198,6 +198,7 @@ class Knight extends Piece {
 
         for(const DIRECTION_VECTOR of VECTORS){
             for(let ROTATION = 0; ROTATION < 4; ROTATION++){
+                let posToCheck = this.position.add(DIRECTION_VECTOR.rotateDeg(90 * ROTATION));
                 
             }
         }

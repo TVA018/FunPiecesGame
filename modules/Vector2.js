@@ -39,7 +39,7 @@ class Vector2 {
     rotateDeg(rotationDeg){
         const rotationRad = rotationDeg * 2 * Math.PI / 360;
 
-        return Vector2.fromAngle(this.inAngleRad + rotationRad);
+        return Vector2.fromAngle(this.inAngleRad + rotationRad) * this.magnitude;
     }
 
     get magnitude(){
