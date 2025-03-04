@@ -8,6 +8,10 @@ class Vector2 {
         return new Vector2(v.x, v.y);
     }
 
+    static fromAngle(angleRad){
+        return new Vector2(Math.cos(angleRad), Math.sin(angleRad));
+    }
+
     add(v2){
         return new Vector2(this.x - v2.x, this.y - v2.y);
     }
@@ -32,13 +36,28 @@ class Vector2 {
         return (this.x === v2.x) & (this.y === v2.y);
     }
 
+    rotateDeg(rotationDeg){
+        const rotationRad = rotationDeg * 2 * Math.PI / 360;
+
+        return Vector2.fromAngle(this.inAngleRad + rotationRad);
+    }
+
     get magnitude(){
         return Math.sqrt(this.x ** 2 + this.y ** 2);
     }
 
     get normalized(){
-        let magnitude = this.magnitude();
+        let magnitude = this.magnitude;
+
+        if(magnitude == 0){
+            return new Vector2(0, 0);
+        }
+
         return new Vector2(this.x/magnitude, this.y/magnitude);
+    }
+
+    get inAngleRad(){
+        return Math.atan2(this.y/this.x);
     }
 
     get toString(){

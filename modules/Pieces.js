@@ -187,6 +187,23 @@ class Knight extends Piece {
         super(grid, startingPos, side);
         this.name = `${side}Knight`;
     }
+
+    get availableTiles(){
+        const tiles = [];
+
+        const VECTORS = [
+            new Vector2(1, 3),
+            new Vector2(-1, 3)
+        ];
+
+        for(const DIRECTION_VECTOR of VECTORS){
+            for(let ROTATION = 0; ROTATION < 4; ROTATION++){
+                
+            }
+        }
+
+        return tiles;
+    }
 }
 
 class Pawn extends Piece {
