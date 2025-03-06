@@ -38,8 +38,23 @@ class Vector2 {
 
     rotateDeg(rotationDeg){
         const rotationRad = rotationDeg * 2 * Math.PI / 360;
+        const rotatedVector = Vector2.fromAngle(this.inAngleRad + rotationRad).mul(this.magnitude)
 
-        return Vector2.fromAngle(this.inAngleRad + rotationRad).mul(this.magnitude);
+        //Account for floating point errors
+        // rotatedVector.x = parseFloat(rotatedVector.x).toPrecision(12)
+        // rotatedVector.y = parseFloat(rotatedVector.y).toPrecision(12)
+
+        return rotatedVector;
+    }
+
+    rotateRad(rotationRad){
+        const rotatedVector = Vector2.fromAngle(this.inAngleRad + rotationRad).mul(this.magnitude)
+
+        //Account for floating point errors
+        // rotatedVector.x = parseFloat(rotatedVector.x).toPrecision(12)
+        // rotatedVector.y = parseFloat(rotatedVector.y).toPrecision(12)
+
+        return rotatedVector;
     }
 
     get magnitude(){
@@ -57,7 +72,7 @@ class Vector2 {
     }
 
     get inAngleRad(){
-        return Math.atan2(this.y/this.x);
+        return Math.atan2(this.y, this.x);
     }
 
     get toString(){

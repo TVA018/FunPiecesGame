@@ -198,13 +198,16 @@ class Knight extends Piece {
 
         for(const DIRECTION_VECTOR of VECTORS){
             for(let ROTATION = 0; ROTATION < 4; ROTATION++){
-                let posToCheck = this.position.add(DIRECTION_VECTOR.rotateDeg(90 * ROTATION));
+                let posToCheck = this.position.add(DIRECTION_VECTOR.rotateRad(Math.PI/2 * ROTATION));
+                //round posToCheck to an integer
+                posToCheck.x = Math.round(posToCheck.x);
+                posToCheck.y = Math.round(posToCheck.y);
                 
-                if(!this.canMoveTo(posToCheck, false)){ continue; }
-
+                if(!this.canMoveTo(posToCheck, true)){ continue; }
+                
                 tiles.push({
                     position: posToCheck,
-                    tiles: this.grid.getTile(posToCheck)
+                    tile: this.grid.getTile(posToCheck)
                 });
             }
         }
