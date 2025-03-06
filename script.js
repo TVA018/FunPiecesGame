@@ -3,6 +3,7 @@ function log(msg){
     c.innerText = `${msg}\n${c.innerText}`;
 }
 
+let currentSide = "White"; //whose turn it is
 const grid = new Grid(8);
 
 const DEFAULT_BOARD_LAYOUT = [

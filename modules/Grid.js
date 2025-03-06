@@ -134,7 +134,7 @@ class Grid {
 
                 resetAvailableTiles();
 
-                if(!piece || this.activeTile == tile) {
+                if(!piece || this.activeTile == tile || piece.side != currentSide) {
                     this.activeTile = null;
                     return; 
                 }
@@ -159,6 +159,7 @@ class Grid {
 
                         piece.position = availablePos;
                         resetAvailableTiles();
+                        currentSide = (currentSide == "White") ? "Black" : "White";
                         this.renderTiles();
                     };
                 }
