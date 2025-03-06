@@ -192,8 +192,8 @@ class Knight extends Piece {
         const tiles = [];
 
         const VECTORS = [
-            new Vector2(1, 3),
-            new Vector2(-1, 3)
+            new Vector2(1, 2),
+            new Vector2(-1, 2)
         ];
 
         for(const DIRECTION_VECTOR of VECTORS){
@@ -205,8 +205,8 @@ class Knight extends Piece {
                 
                 if(!this.canMoveTo(posToCheck, true)){ continue; }
                 
-                tiles.push({
-                    position: posToCheck,
+                tiles.push({ //add to possible tiles
+                    position: posToCheck.clone(),
                     tile: this.grid.getTile(posToCheck)
                 });
             }
