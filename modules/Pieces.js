@@ -200,6 +200,12 @@ class Knight extends Piece {
             for(let ROTATION = 0; ROTATION < 4; ROTATION++){
                 let posToCheck = this.position.add(DIRECTION_VECTOR.rotateDeg(90 * ROTATION));
                 
+                if(!this.canMoveTo(posToCheck, false)){ continue; }
+
+                tiles.push({
+                    position: posToCheck,
+                    tiles: this.grid.getTile(posToCheck)
+                });
             }
         }
 
